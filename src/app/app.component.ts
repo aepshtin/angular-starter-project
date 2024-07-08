@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
     public activeRoute: ActivatedRoute,
     private routeHelper: RouteHelperService,
     public uiService: UIToolsService
-  ) {}
+  ) { }
   terms = terms
   remult = remult
 
@@ -31,17 +31,17 @@ export class AppComponent implements OnInit {
     openDialog(
       DataAreaDialogComponent,
       (i) =>
-        (i.args = {
-          title: terms.signIn,
-          object: signIn,
-          ok: async () => {
-            remult.user = await signIn.signIn()
-          },
-        })
+      (i.args = {
+        title: terms.signIn,
+        object: signIn,
+        ok: async () => {
+          remult.user = await signIn.signIn()
+        },
+      })
     )
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   signOut() {
     SignInController.signOut()
@@ -54,13 +54,13 @@ export class AppComponent implements OnInit {
     openDialog(
       DataAreaDialogComponent,
       (i) =>
-        (i.args = {
-          title: terms.updateInfo,
-          fields: [user.$.name],
-          ok: async () => {
-            await user._.save()
-          },
-        })
+      (i.args = {
+        title: terms.updateInfo,
+        fields: [user.$.name],
+        ok: async () => {
+          await user._.save()
+        },
+      })
     )
   }
   async changePassword() {
@@ -68,21 +68,20 @@ export class AppComponent implements OnInit {
     openDialog(
       DataAreaDialogComponent,
       (i) =>
-        (i.args = {
-          title: terms.signIn,
-          object: updatePassword,
-          ok: async () => {
-            await updatePassword.updatePassword()
-          },
-        })
+      (i.args = {
+        title: terms.signIn,
+        object: updatePassword,
+        ok: async () => {
+          await updatePassword.updatePassword()
+        },
+      })
     )
   }
 
   routeName(route: Route) {
-    let name = route.path 
+    let name = route.path
     if (route.data && route.data['name']) name = route.data['name']
-    return name 
-    return ''
+    return name;
   }
 
   currentTitle() {

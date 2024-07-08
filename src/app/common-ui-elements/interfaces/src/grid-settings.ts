@@ -392,7 +392,7 @@ export class GridSettings<rowType = unknown> {
   }
 
   totalRows!: number
-  unsubscribe = () => {}
+  unsubscribe = () => { }
   loaded = false
   async reloadData() {
     let opt: FindOptions<rowType> = await this._internalBuildFindOptions()
@@ -485,7 +485,7 @@ export interface IDataSettings<rowType = unknown> {
   rowsLoaded?: (items: rowType[]) => void
   allowUpdate?: boolean
   allowInsert?: boolean
-  allowDelete?: boolean
+  allowDelete?: boolean 
   allowCrud?: boolean
   showDataArea?: boolean
   showPagination?: boolean
@@ -505,8 +505,8 @@ export interface IDataSettings<rowType = unknown> {
    * @see For more usage examples see [EntityFilter](https://remult.dev/docs/entityFilter.html)
    */
   where?:
-    | EntityFilter<rowType>
-    | (() => EntityFilter<rowType> | Promise<EntityFilter<rowType>>)
+  | EntityFilter<rowType>
+  | (() => EntityFilter<rowType> | Promise<EntityFilter<rowType>>)
   /** Determines the order in which the result will be sorted in
    * @see See [EntityOrderBy](https://remult-ts.github.io/guide/ref__entityorderby) for more examples on how to sort
    */
@@ -560,7 +560,7 @@ export interface GridButton {
 const storageEntryName = 'grid-state'
 export class columnOrderAndWidthSaver {
   suspend = false
-  constructor(private grid: GridSettings<any>) {}
+  constructor(private grid: GridSettings<any>) { }
   getStorage() {
     let state = localStorage.getItem(storageEntryName)
     if (state) {

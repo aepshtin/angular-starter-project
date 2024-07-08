@@ -25,26 +25,23 @@
     </ng-container>
   </mat-toolbar>
   <mat-sidenav-container class="app-sidenav-container">
-    <mat-sidenav
-      #sidenav
-      class="app-sidenav mat-elevation-z10 no-print"
-      [opened]="!uiService.isScreenSmall()"
-      [mode]="uiService.isScreenSmall() ? 'over' : 'side'"
-    >
+    <mat-sidenav #sidenav class="app-sidenav mat-elevation-z10 no-print" [opened]="!uiService.isScreenSmall()"
+      [mode]="uiService.isScreenSmall() ? 'over' : 'side'">
       <div style="width: 100%; text-align: center"></div>
       <h4 *ngIf="remult.authenticated()">
         {{ terms.hello }} {{ remult.user!.name }}
       </h4>
       <mat-nav-list role="list">
+
         <ng-container *ngFor="let m of router.config">
-          <mat-list-item
-            *ngIf="shouldDisplayRoute(m)"
-            routerLinkActive="active-route"
-          >
-            <a matLine [routerLink]="m.path" (click)="routeClicked()">{{
+          <a matLine [routerLink]="m.path" (click)="routeClicked()">
+
+            <mat-list-item *ngIf="shouldDisplayRoute(m)" routerLinkActive="active-route">
+              {{
               routeName(m)
-            }}</a>
-          </mat-list-item>
+              }}
+            </mat-list-item>
+          </a>
         </ng-container>
       </mat-nav-list>
     </mat-sidenav>

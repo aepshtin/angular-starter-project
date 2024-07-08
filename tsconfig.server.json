@@ -6,5 +6,5 @@
     "noEmit": false,
     "outDir": "dist"
   },
-  "include": ["src/server/index.ts", "./src/app/common/UITools.ts"]
+  "include": ["src/server/index.ts", "./src/app/common/UITools.ts","src/types.d.ts"]
 }

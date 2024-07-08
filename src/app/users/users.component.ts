@@ -16,7 +16,7 @@ import { BusyService } from '../common-ui-elements'
   styleUrls: ['./users.component.css'],
 })
 export class UsersComponent implements OnInit {
-  constructor(private ui: UIToolsService, private busyService: BusyService) {}
+  constructor(private ui: UIToolsService, private busyService: BusyService) { }
   isAdmin() {
     return remult.isAllowed(Roles.admin)
   }
@@ -34,11 +34,19 @@ export class UsersComponent implements OnInit {
     rowCssClass: (row) => (row.disabled ? 'canceled' : ''),
     gridButtons: [
       {
-        name: 'Excel',
+        name: 'Export to Excel',
         click: () => saveToExcel(this.users, 'users', this.busyService),
       },
     ],
     rowButtons: [
+      {
+        name: 'עריכה',
+        click: async (e) => e.editDialog(this.ui),
+      },
+      {
+        name: 'admin',
+        click: async (e) => console.log('admin', remult.repo(User).metadata.apiUpdateAllowed(e)),
+      },
       {
         name: terms.resetPassword,
         click: async () => {
@@ -58,5 +66,5 @@ export class UsersComponent implements OnInit {
     },
   })
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

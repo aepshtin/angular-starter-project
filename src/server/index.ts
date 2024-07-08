@@ -25,6 +25,8 @@ async function startup() {
 
   app.use(api)
 
+  console.log('console in index.ts');
+
   let dist = path.resolve('dist/angular-starter-project')
   if (!fs.existsSync(dist)) {
     dist = path.resolve('../angular-starter-project')

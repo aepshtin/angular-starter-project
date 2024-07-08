@@ -11,6 +11,8 @@ import {
 } from 'remult'
 import { Roles } from './roles'
 import { terms } from '../terms'
+import { DataControl } from '../common-ui-elements/interfaces/src/data-control-interfaces'
+import { UITools } from '../common/UITools'
 
 @Entity<User>('Users', {
   allowApiRead: Allow.authenticated,
@@ -35,6 +37,7 @@ export class User extends IdEntity {
     caption: terms.username,
   })
   name = ''
+  
   @Fields.string({ includeInApi: false })
   password = ''
   @Fields.date({
@@ -42,13 +45,20 @@ export class User extends IdEntity {
   })
   createDate = new Date()
 
+  // allowApiUpdate: Roles.admin,
   @Fields.boolean({
-    allowApiUpdate: Roles.admin,
+    allowApiUpdate: (u) => {
+      console.log('remult?.user?.id', remult?.user?.id)
+      console.log('u.id', u.id)
+      return remult?.user?.id != u.id;
+    },
+    // allowApiUpdate: (u) =>  remult?.user?.id != u.id,
     caption: terms.admin,
   })
   admin = false
-  
+
   @Fields.boolean({
+
     allowApiUpdate: Roles.admin,
     caption: terms.disabled,
     // validate: Validators.required,
@@ -63,6 +73,22 @@ export class User extends IdEntity {
       !this.password ||
       (await import('password-hash')).verify(password, this.password)
     )
+  }
+
+  editDialog(ui: UITools, onOk?: () => void) {
+    const v = this
+    ui.areaDialog({
+      title: 'פרטי משתמש',
+      fields: [
+        v.$.name,
+        v.$.admin,
+      ],
+      ok: async () => {
+        await v.save()
+        ui.info('נשמר בהצלחה');
+        onOk?.()
+      },
+    })
   }
   @BackendMethod({ allowed: Roles.admin })
   async resetPassword() {
